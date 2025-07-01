@@ -1,0 +1,461 @@
+openapi: 3.0.3
+info:
+  title: ドローン在庫管理API - 共通コンポーネント
+  description: 全モジュールで使用する共通スキーマ、レスポンス、セキュリティ定義
+  version: 1.0.0
+
+components:
+  schemas:
+    # ===========================================
+    # 共通レスポンス
+    # ===========================================
+    SuccessResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: 成功メッセージ
+          example: "操作が正常に完了しました"
+        status:
+          type: integer
+          description: HTTPステータスコード
+          example: 200
+        data:
+          type: object
+          description: レスポンスデータ
+
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: エラーメッセージ
+          example: "無効な入力値です"
+        status:
+          type: integer
+          description: HTTPステータスコード
+          example: 400
+        details:
+          type: string
+          description: エラー詳細
+          example: "invalid.input.name"
+
+    # ===========================================
+    # 認証関連
+    # ===========================================
+    LoginRequest:
+      type: object
+      required:
+        - adminId
+        - password
+      properties:
+        adminId:
+          type: string
+          description: 管理者ID
+          example: "admin001"
+          minLength: 1
+          maxLength: 50
+        password:
+          type: string
+          description: パスワード
+          format: password
+          example: "password123"
+          minLength: 6
+          maxLength: 100
+
+    RegisterRequest:
+      type: object
+      required:
+        - adminId
+        - password
+      properties:
+        adminId:
+          type: string
+          description: 管理者ID
+          example: "admin002"
+          minLength: 1
+          maxLength: 50
+        password:
+          type: string
+          description: パスワード
+          format: password
+          example: "newpassword123"
+          minLength: 6
+          maxLength: 100
+
+    LoginResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: レスポンスメッセージ
+          example: "Login successful"
+        status:
+          type: integer
+          description: ステータスコード
+          example: 200
+        token:
+          type: string
+          description: JWTトークン
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+
+    # ===========================================
+    # カテゴリ情報（部品・製品共通）
+    # ===========================================
+    CategoryInfo:
+      type: object
+      required:
+        - categoryId
+        - categoryName
+      properties:
+        categoryId:
+          type: integer
+          description: カテゴリID
+          example: 1
+          minimum: 1
+        categoryName:
+          type: string
+          description: カテゴリ名
+          example: "フレーム"
+          minLength: 1
+          maxLength: 100
+
+    CategoryCreateRequest:
+      type: object
+      required:
+        - categoryName
+      properties:
+        categoryName:
+          type: string
+          description: カテゴリ名
+          example: "新しいカテゴリ"
+          minLength: 1
+          maxLength: 100
+        description:
+          type: string
+          description: カテゴリ説明
+          example: "カテゴリの詳細説明"
+          maxLength: 500
+
+    CategoryUpdateRequest:
+      type: object
+      properties:
+        categoryName:
+          type: string
+          description: カテゴリ名
+          example: "更新されたカテゴリ"
+          minLength: 1
+          maxLength: 100
+        description:
+          type: string
+          description: カテゴリ説明
+          example: "更新されたカテゴリの詳細説明"
+          maxLength: 500
+
+    # ===========================================
+    # 在庫情報（部品・製品共通）
+    # ===========================================
+    StockInfo:
+      type: object
+      required:
+        - stockId
+        - categoryName
+        - name
+        - amount
+        - centerName
+      properties:
+        stockId:
+          type: integer
+          description: 在庫ID
+          example: 1
+          minimum: 1
+        categoryName:
+          type: string
+          description: カテゴリ名
+          example: "フレーム"
+        name:
+          type: string
+          description: 在庫名
+          example: "軽量カーボンフレーム"
+        amount:
+          type: integer
+          description: 在庫数
+          minimum: 0
+          example: 50
+        centerName:
+          type: string
+          description: センター名
+          example: "東京センター"
+        description:
+          type: string
+          description: 説明
+          example: "軽量で強度の高いカーボン製フレーム"
+
+    StockCreateRequest:
+      type: object
+      required:
+        - categoryId
+        - name
+        - amount
+        - centerId
+      properties:
+        categoryId:
+          type: integer
+          description: カテゴリID
+          example: 1
+          minimum: 1
+        name:
+          type: string
+          description: 在庫名
+          example: "新しい部品"
+          minLength: 1
+          maxLength: 100
+        amount:
+          type: integer
+          description: 在庫数
+          minimum: 0
+          example: 100
+        centerId:
+          type: integer
+          description: センターID
+          example: 1
+          minimum: 1
+        description:
+          type: string
+          description: 説明
+          example: "新しい部品の詳細説明"
+          maxLength: 500
+
+    StockUpdateRequest:
+      type: object
+      properties:
+        categoryId:
+          type: integer
+          description: カテゴリID
+          example: 1
+          minimum: 1
+        name:
+          type: string
+          description: 在庫名
+          example: "更新された部品"
+          minLength: 1
+          maxLength: 100
+        amount:
+          type: integer
+          description: 在庫数
+          minimum: 0
+          example: 150
+        centerId:
+          type: integer
+          description: センターID
+          example: 1
+          minimum: 1
+        description:
+          type: string
+          description: 説明
+          example: "更新された部品の詳細説明"
+          maxLength: 500
+
+    # ===========================================
+    # センター情報
+    # ===========================================
+    CenterInfo:
+      type: object
+      required:
+        - centerId
+        - centerName
+        - location
+      properties:
+        centerId:
+          type: integer
+          description: センターID
+          example: 1
+          minimum: 1
+        centerName:
+          type: string
+          description: センター名
+          example: "東京センター"
+          minLength: 1
+          maxLength: 100
+        location:
+          type: string
+          description: 所在地
+          example: "東京都渋谷区"
+          minLength: 1
+          maxLength: 200
+        contactInfo:
+          type: string
+          description: 連絡先
+          example: "03-1234-5678"
+          maxLength: 100
+        capacity:
+          type: integer
+          description: 収容能力
+          example: 10000
+          minimum: 0
+
+    CenterCreateRequest:
+      type: object
+      required:
+        - centerName
+        - location
+      properties:
+        centerName:
+          type: string
+          description: センター名
+          example: "新センター"
+          minLength: 1
+          maxLength: 100
+        location:
+          type: string
+          description: 所在地
+          example: "大阪府大阪市"
+          minLength: 1
+          maxLength: 200
+        contactInfo:
+          type: string
+          description: 連絡先
+          example: "06-1234-5678"
+          maxLength: 100
+        capacity:
+          type: integer
+          description: 収容能力
+          example: 5000
+          minimum: 0
+
+    CenterUpdateRequest:
+      type: object
+      properties:
+        centerName:
+          type: string
+          description: センター名
+          example: "更新されたセンター"
+          minLength: 1
+          maxLength: 100
+        location:
+          type: string
+          description: 所在地
+          example: "大阪府大阪市北区"
+          minLength: 1
+          maxLength: 200
+        contactInfo:
+          type: string
+          description: 連絡先
+          example: "06-9876-5432"
+          maxLength: 100
+        capacity:
+          type: integer
+          description: 収容能力
+          example: 8000
+          minimum: 0
+
+    # ===========================================
+    # 検索パラメータ
+    # ===========================================
+    SearchParameters:
+      type: object
+      properties:
+        categoryId:
+          type: integer
+          description: カテゴリID
+          example: 1
+          minimum: 1
+        name:
+          type: string
+          description: 名前（部分一致）
+          example: "カーボン"
+          maxLength: 100
+        amountMin:
+          type: string
+          description: 最小在庫数
+          example: "10"
+          pattern: '^[0-9]+$'
+        amountMax:
+          type: string
+          description: 最大在庫数
+          example: "100"
+          pattern: '^[0-9]+$'
+
+  # ===========================================
+  # セキュリティスキーム
+  # ===========================================
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWTトークンによる認証。ヘッダー形式：Authorization: Bearer {token}
+
+  # ===========================================
+  # 共通レスポンス
+  # ===========================================
+  responses:
+    UnauthorizedError:
+      description: 認証エラー
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            message: "認証が必要です"
+            status: 401
+            details: "Unauthorized access"
+
+    ForbiddenError:
+      description: 権限エラー
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            message: "アクセス権限がありません"
+            status: 403
+            details: "Forbidden access"
+
+    NotFoundError:
+      description: リソースが見つかりません
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            message: "指定されたリソースが見つかりません"
+            status: 404
+            details: "Resource not found"
+
+    ValidationError:
+      description: 入力値検証エラー
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            allParametersEmpty:
+              summary: 全パラメータ未入力
+              value:
+                message: "検索条件を入力してください"
+                status: 400
+                details: "invalid.input.allParameters"
+            invalidName:
+              summary: 無効な名前
+              value:
+                message: "名前の形式が正しくありません"
+                status: 400
+                details: "invalid.input.name"
+            invalidAmount:
+              summary: 無効な個数
+              value:
+                message: "個数は数値で入力してください"
+                status: 400
+                details: "invalid.input.amount"
+
+    InternalServerError:
+      description: サーバー内部エラー
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            message: "サーバー内部エラーが発生しました"
+            status: 500
+            details: "Internal server error"

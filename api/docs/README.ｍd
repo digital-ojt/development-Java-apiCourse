@@ -1,0 +1,69 @@
+# API ドキュメント構成
+
+このディレクトリには、ドローン在庫管理システムのAPIに関するドキュメントが含まれています。
+
+## 📁 ディレクトリ構成
+
+```
+api/
+├── DroneInventorySystemApi/   # Spring Boot APIアプリケーション
+│   ├── src/main/java/         # Javaソースコード
+│   │   └── com/digitalojt/api/
+│   │       ├── config/        # 設定クラス（セキュリティ等）
+│   │       ├── consts/        # 定数クラス
+│   │       ├── controller/    # REST APIコントローラー
+│   │       ├── dto/           # データ転送オブジェクト
+│   │       ├── entity/        # エンティティクラス（DB）
+│   │       ├── exception/     # 例外処理
+│   │       ├── repository/    # データアクセス層
+│   │       ├── service/       # ビジネスロジック層
+│   │       └── util/          # ユーティリティクラス
+│   ├── src/main/resources/    # リソースファイル
+│   └── src/test/              # テストコード
+├── api_front/                 # React フロントエンドアプリケーション
+│   ├── public/                # 静的ファイル
+│   └── src/                   # Reactソースコード
+│       ├── components/        # Reactコンポーネント
+│       ├── pages/             # ページコンポーネント
+│       └── services/          # API通信サービス
+├── api_front_backup/          # フロントエンドのバックアップ（HTML/CSS/JS）
+├── api_test/                  # API テスト用ファイル
+│   ├── category_info.http     # カテゴリ情報API テスト
+│   └── stock_info.http        # 在庫情報API テスト
+├── docs/                      # APIドキュメント（このフォルダ）
+│   ├── architecture/          # アーキテクチャ設計書
+│   │   ├── interface-design.md    # インターフェース設計
+│   │   └── system-overview.md     # システム概要
+│   ├── logic/                 # 処理詳細設計（詳細設計書）
+│   ├── swagger/               # OpenAPI仕様
+│   │   ├── README.md              # Swagger使用方法
+│   │   └── shared-components.yaml # 共通コンポーネント定義
+│   └── README.md              # このファイル：ドキュメント構成ガイド
+└── README.md                  # API全体の概要
+```
+
+## 📋 各ドキュメントの説明
+
+### 🏗️ アーキテクチャ設計書 (`architecture/`)
+- **interface-design.md**: REST API エンドポイントの設計仕様
+- **system-overview.md**: システム全体のアーキテクチャ概要
+
+### 🔧 処理詳細設計 (`logic/`)
+業務ロジックの詳細な処理フローを記載した設計書を格納
+
+### 📘 OpenAPI仕様 (`swagger/`)
+- **shared-components.yaml**: API共通コンポーネント（DTOモデル等）の定義
+- **README.md**: Swagger UI の使用方法とAPI仕様書の参照方法
+
+## 🚀 関連リソース
+
+- **実装コード**: `DroneInventorySystemApi/src/`
+- **フロントエンド**: `api_front/src/`
+- **API テスト**: `api_test/*.http` ファイル
+
+## 📖 ドキュメント利用方法
+
+1. システム理解: `architecture/system-overview.md` から開始
+2. API設計確認: `architecture/interface-design.md` および `swagger/` を参照
+3. 詳細ロジック: `logic/` 内の各処理設計書を確認
+4. 実装・テスト: `api_test/` でAPIの動作確認
