@@ -1,122 +1,111 @@
-# ドローン在庫管理システム ドキュメント説明
+# 🏗️ 設計ドキュメント
 
-本ディレクトリには、ドローン在庫管理システムの全体的なドキュメントが格納されています。
+## 📋 概要
+
+このディレクトリには、**ドローン在庫管理システム（DroneInventorySystem）** の設計フェーズで作成された設計書群が含まれています。
+
+---
 
 ## 📁 ディレクトリ構成
 
+### 🏛️ [アーキテクチャ設計（architecture/）](./architecture/)
+
+- **目的**: システム全体のアーキテクチャ設計書
+- **対象読者**: システムアーキテクト、全開発チーム、インフラエンジニア
+- **構成**:
+  - 📄 **[system-overview.md](./architecture/system-overview.md)**: システム全体概要
+  - 📄 **[data-design.md](./architecture/data-design.md)**: データ設計・データベース設計
+  - 📄 **[operation-design.md](./architecture/operation-design.md)**: 運用設計・監視設計
+
+### 📋 [要件定義（requirements/）](./requirements/)
+
+- **目的**: システムの要件定義書群
+- **対象読者**: プロジェクトマネージャー、ビジネスアナリスト、全開発チーム
+- **構成**:
+  - 📄 **[business-requirements.md](./requirements/business-requirements.md)**: ビジネス要件定義
+  - 📄 **[functional-requirements.md](./requirements/functional-requirements.md)**: 機能要件定義
+  - 📄 **[non-functional-requirements.md](./requirements/non-functional-requirements.md)**: 非機能要件定義
+
+---
+
+## 🔗 関連ディレクトリ
+
+### 💻 [API 実装（../api/）](../api/)
+
+- **目的**: API の実装プログラムと API 関連ドキュメント
+- **対象読者**: バックエンドエンジニア、フロントエンドエンジニア
+- **構成**:
+  - 📄 **[../api/README.md](../api/README.md)**: API 実装概要
+  - 📁 **[../api/docs/](../api/docs/)**: API 関連ドキュメント
+    - 📄 **[interface-design.md](../api/docs/architecture/interface-design.md)**: API インターフェース設計書
+    - 📄 **[system-overview.md](../api/docs/architecture/system-overview.md)**: API システム概要
+    - 📁 **[swagger/](../api/docs/swagger/)**: OpenAPI 仕様書
+
+---
+
+## 🎯 設計書の関係性
+
 ```
-docs/                                    # 全体統括ドキュメント
-├── README.md                            # ドキュメント全体の概要、構成、読み方ガイド
-├── requirements/                        # 要件定義フェーズのドキュメント群
-│   ├── business-requirements.md         # 業務要件書：課題、目的、業務フロー、業務プロセス、ステークホルダー
-│   ├── functional-requirements.md       # 機能要件書：ユーザーストーリーや機能一覧、ユースケース定義など
-│   └── non-functional-requirements.md   # 非機能要件書：セキュリティ・パフォーマンス・可用性などの要求事項
-└── architecture/                        # システム全体の基本設計
-    ├── system-overview.md               # システム概要書：全体構成図、サブシステム関係
-    ├── data-design.md                   # データ設計書：ER図、テーブル定義、データフロー
-    ├── security.md                      # セキュリティ設計書：認証・認可、ログポリシー
-    └── operation-design.md              # 運用設計書：バックアップ、障害対応、監視
-
-api/                                     # APIサブシステム
-├── docs/                                # API技術ドキュメント
-│   ├── README.md                        # API ドキュメント概要
-│   ├── architecture/                    # API アーキテクチャ設計
-│   │   ├── system-overview.md           # API システム概要書：API構成図、コンポーネント図
-│   │   ├── interface-design.md          # API インタフェース設計書：エンドポイント設計
-│   │   └── security-design.md           # API セキュリティ設計書：JWT認証、認可設計
-│   ├── swagger/                         # API 仕様書（OpenAPI）
-│   │   ├── README.md                    # Swagger ドキュメント説明
-│   │   ├── modules/                     # API モジュール別仕様
-│   │   │   ├── ~.yaml
-│   │   │   └── ~.yaml
-│   └── detail/                          # API 詳細設計書
-│       ├── README.md                    # 詳細設計書概要
-│       ├── business-logic/              # ビジネスロジック詳細設計
-│       │   ├── authentication-logic.md  # 認証処理詳細設計
-│       │   ├── inventory-logic.md       # 在庫管理ロジック詳細設計
-│       │   ├── category-logic.md        # カテゴリ管理ロジック詳細設計
-│       │   └── validation-logic.md      # バリデーションロジック詳細設計
-│       ├── data-access/                 # データアクセス詳細設計
-│       │   ├── repository-design.md     # リポジトリパターン設計
-│       │   ├── transaction-design.md    # トランザクション設計
-│       │   └── query-optimization.md    # クエリ最適化設計
-│       └── api-flow/                    # API処理フロー詳細設計
-│           ├── login-flow.md            # ログイン処理フロー
-│           ├── inventory-crud-flow.md   # 在庫CRUD処理フロー
-│           ├── category-crud-flow.md    # カテゴリCRUD処理フロー
-│           └── error-handling-flow.md   # エラーハンドリングフロー
-
-batch/                                   # バッチサブシステム
-├── docs/                                # バッチ技術ドキュメント
-│   ├── README.md                        # バッチ ドキュメント概要
-│   ├── architecture/                    # バッチ アーキテクチャ設計
-│   │   ├── system-overview.md           # バッチ システム概要書：バッチ処理構成図
-│   │   ├── data-flow-diagram.md         # データフローダイアグラム（DFD）
-│   │   ├── job-design.md                # ジョブ設計書：バッチジョブ定義、スケジュール
-│   │   └── error-handling-design.md     # エラーハンドリング設計書：例外処理、リトライ
-│   └── job-specs/                       # ジョブ仕様書
-│       ├── inventory-sync-job.md        # 在庫同期ジョブ仕様
-│       ├── report-generation-job.md     # レポート生成ジョブ仕様
-│       └── data-cleanup-job.md          # データクリーンアップジョブ仕様
-└── src/                                 # バッチ実装
-
-web/                                     # WEBサブシステム
-├── docs/                                # WEB技術ドキュメント
-│   ├── README.md                        # WEB ドキュメント概要
-│   ├── architecture/                    # WEB アーキテクチャ設計
-│   │   ├── system-overview.md           # WEB システム概要書：フロントエンド構成図
-│   │   ├── screen-design.md             # 画面設計書：画面遷移図、UI/UXデザイン
-│   │   ├── component-design.md          # コンポーネント設計書：再利用可能コンポーネント
-│   │   └── state-management-design.md   # 状態管理設計書：データフロー、状態管理
-│   ├── screen-specs/                    # 画面仕様書
-│   │   ├── login-screen.md              # ログイン画面仕様
-│   │   ├── dashboard-screen.md          # ダッシュボード画面仕様
-│   │   ├── inventory-management-screen.md # 在庫管理画面仕様
-│   │   └── report-screen.md             # レポート画面仕様
-│   └── style-guide/                     # スタイルガイド
-│       ├── ui-components.md             # UIコンポーネントガイド
-│       └── design-tokens.md             # デザイントークン（色、フォント、スペース）
-└── src/                                 # WEB実装
+┌─────────────────┐    ┌─────────────────┐
+│   Requirements  │    │   Architecture  │
+│   (要件定義)     │───►│   (設計)        │
+└─────────────────┘    └─────────────────┘
+                                │
+                                ▼
+                    ┌─────────────────┐
+                    │  Implementation │
+                    │  (../api/)      │
+                    └─────────────────┘
 ```
 
-## 🎯 対象読者
+---
 
-### 要件定義書 (`requirements/`)
+## 📖 設計書閲覧ガイド
 
-- 要件定義ドキュメント
-- **業務要件**: プロジェクトマネージャー、ビジネスアナリスト、ステークホルダー
-- **機能要件**: プロジェクトマネージャー、開発チーム、テストチーム
-- **非機能要件**: アーキテクト、開発リーダー、インフラエンジニア
+### 🔰 初回読者向け
 
-### 基本設計書 (`architecture/`)
+1. **[要件定義](./requirements/)** でシステムの目的と要件を理解
+2. **[アーキテクチャ設計](./architecture/)** でシステム設計を理解
+3. **[API ドキュメント](../api/docs/)** で実装仕様を確認
 
-- 基本設計ドキュメント
-- **システム概要書**: アーキテクト、開発リーダー、プロジェクトマネージャー
-- **データ設計書**: データベースエンジニア、バックエンド開発チーム
-- **インタフェース設計書**: アーキテクト、開発チーム、外部システム連携担当者
-- **セキュリティ設計書**: セキュリティエンジニア、アーキテクト、開発リーダー、インフラエンジニア
-- **運用設計書**: インフラエンジニア、運用担当者、システム管理者、プロジェクトマネージャー
+### 👨‍💻 開発者向け
 
-### API 仕様書 (`../api/docs/swagger/`)
+- **プロジェクト開始時**: `requirements/` → `architecture/` → `../api/docs/`
+- **API 開発者**: `requirements/functional-requirements.md` → `../api/docs/architecture/interface-design.md`
+- **データベース設計**: `architecture/data-design.md`
 
-- **API 設計書**: 開発チーム、テストチーム、外部システム連携担当者
+### 🔧 保守・運用者向け
 
-### 詳細設計書 (`../api/docs/detail/`)
+- **システム運用**: `architecture/operation-design.md`
+- **データベース保守**: `architecture/data-design.md`
+- **API 監視**: `../api/docs/architecture/interface-design.md`
 
-- **処理詳細設計**: バックエンド開発チーム、コードレビュアー、保守担当者
+---
 
-## ⚠️ 注意事項
+## 📂 プロジェクト全体構成
 
-### ドキュメント更新ルール
+```
+development-Java-apiCourse/
+├── docs/                     # 設計ドキュメント（このディレクトリ）
+│   ├── architecture/         # アーキテクチャ設計書
+│   ├── requirements/         # 要件定義書
+│   └── README.md            # このファイル
+└── api/                     # API 実装
+    ├── docs/                # API 関連ドキュメント
+    ├── src/                 # ソースコード（予定）
+    ├── tests/               # テストコード（予定）
+    └── README.md           # API 実装概要
+```
 
-- **要件変更時**: `requirements/` 配下の該当ドキュメントを更新
-- **基本設計変更時**: `architecture/` 配下の該当ドキュメントを更新
-- **API 変更時**: `../api/docs/swagger/` 配下の該当仕様書を更新
+---
 
-#### API 関連ドキュメントの管理場所について
+## 📌 更新履歴
 
-- API に関する技術的なドキュメントは全て `../api/docs/` 配下に集約
-- **API 仕様書**（OpenAPI/Swagger）は **`../api/docs/swagger/`** 配下で管理
-- **詳細設計書**（処理詳細・ビジネスロジック）は **`../api/docs/detail/`** 配下で管理
-- **API 実装状況**は **`../api/docs/API_STATUS.md`** で確認可能
-- **API テスト**は **`../api/api_test/`** 配下で管理
+| 日付       | バージョン | 更新内容                   | 更新者     |
+| ---------- | ---------- | -------------------------- | ---------- |
+| 2024/XX/XX | 1.1.0      | プロジェクト構造変更に対応 | 開発チーム |
+| 2024/XX/XX | 1.0.0      | 初版作成                   | 開発チーム |
+
+---
+
+**💡 設計書に関する質問やフィードバックは、開発チームまでお気軽にお声がけください。**
