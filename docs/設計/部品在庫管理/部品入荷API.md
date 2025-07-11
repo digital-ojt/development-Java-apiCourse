@@ -91,6 +91,8 @@ Content-Type: application/json
 
 #### 2.3.1 成功レスポンス（200 OK）
 
+TODO: レスポンスは、「成功」「失敗」の情報だけで良い。
+
 ```json
 {
   "status": "success",
@@ -124,79 +126,7 @@ Content-Type: application/json
 
 #### 2.3.2 エラーレスポンス
 
-| ステータス | エラーコード            | 説明                       |
-| ---------- | ----------------------- | -------------------------- |
-| 400        | INVALID_REQUEST         | リクエストパラメータエラー |
-| 400        | INVALID_CHARACTER       | 不正文字列・文字種エラー   |
-| 400        | SECURITY_VIOLATION      | セキュリティチェックエラー |
-| 400        | BUSINESS_RULE_VIOLATION | ビジネスルール違反         |
-| 401        | UNAUTHORIZED            | 認証エラー                 |
-| 404        | CENTER_NOT_FOUND        | センター ID が存在しない   |
-| 404        | CATEGORY_NOT_FOUND      | カテゴリ ID が存在しない   |
-| 409        | DUPLICATE_ORDER         | 発注書番号が重複           |
-| 500        | INTERNAL_ERROR          | システム内部エラー         |
-
-##### エラーレスポンス例
-
-**基本的なパラメータエラー**
-
-```json
-{
-  "status": "error",
-  "error_code": "INVALID_REQUEST",
-  "message": "リクエストパラメータに不正な値が含まれています",
-  "details": {
-    "field": "items[0].receive_amount",
-    "value": -10,
-    "reason": "入荷数量は1以上である必要があります"
-  }
-}
-```
-
-**不正文字列エラー**
-
-```json
-{
-  "status": "error",
-  "error_code": "INVALID_CHARACTER",
-  "message": "入力値に許可されていない文字が含まれています",
-  "details": {
-    "field": "supplier_name",
-    "reason": "会社名には日本語、英数字、および限定された記号のみ使用可能です"
-  }
-}
-```
-
-**セキュリティ違反エラー**
-
-```json
-{
-  "status": "error",
-  "error_code": "SECURITY_VIOLATION",
-  "message": "セキュリティポリシーに違反する入力が検出されました",
-  "details": {
-    "field": "name",
-    "reason": "不正なスクリプトまたはコマンドが検出されました"
-  }
-}
-```
-
-**ビジネスルール違反エラー**
-
-```json
-{
-  "status": "error",
-  "error_code": "BUSINESS_RULE_VIOLATION",
-  "message": "業務ルールに違反する値が指定されています",
-  "details": {
-    "field": "items[0].receive_amount",
-    "value": 15000,
-    "reason": "1回の入荷数量は10,000個以下である必要があります"
-  }
-}
-```
-
----
+## TODO: （変更）IF 仕様書（共通）をみて下さい。
 
 ## 3. 詳細設計（内部仕様）
 
